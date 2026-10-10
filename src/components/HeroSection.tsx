@@ -19,18 +19,9 @@ export default function HeroSection() {
       </div>
       <div className="mx-auto grid min-h-[100svh] max-w-6xl items-center gap-12 px-5 pb-28 pt-28 sm:px-8 lg:grid-cols-[1.2fr_.8fr] lg:gap-10 lg:pb-32">
         <div className="hero-rise">
-          <div className="mb-2 flex items-center gap-3">
-            <img
-              src={c.images.logoTight}
-              alt={c.ministry.en}
-              className="h-10 w-auto max-w-[44px] object-contain drop-shadow"
-              width={44}
-              height={42}
-            />
-            <p className="font-display text-lg font-bold text-white sm:text-xl">
-              {c.ministry.ta} <span className="font-medium text-gold-300">{c.ministry.presents}</span>
-            </p>
-          </div>
+          <p className="font-display text-lg font-bold text-white sm:text-xl">
+            {c.ministry.ta} <span className="font-medium text-gold-300">{c.ministry.presents}</span>
+          </p>
 
           <h1 id="hero-title" className="mt-4">
             <span className="block font-display text-[2.1rem] font-extrabold leading-tight text-white sm:text-5xl">{c.title.ta}</span>
