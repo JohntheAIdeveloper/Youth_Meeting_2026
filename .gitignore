@@ -5,3 +5,5 @@ dist
 *.log
 files (3)/
 extracted/
+
+.vercel
