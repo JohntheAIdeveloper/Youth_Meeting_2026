@@ -39,6 +39,38 @@ export default function EventDetails() {
         </article>
       </div>
 
+      {/* Featured Speakers & Special Counseling from the official poster */}
+      <div className="mt-8">
+        <h3 className="mb-4 text-center font-display text-xl font-bold text-gold-300">
+          சிறப்புச் செய்தி & ஆலோசனை | Speakers & Counseling
+        </h3>
+        <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-2">
+          {c.speakers.map((s) => (
+            <article
+              key={s.nameEn}
+              className="tile flex items-center gap-4 border border-gold-500/30 bg-midnight-800/90 p-4 transition-colors hover:border-gold-400"
+            >
+              <img
+                src={s.avatar}
+                alt={s.nameEn}
+                width={80}
+                height={80}
+                className="h-20 w-20 shrink-0 rounded-full border-2 border-gold-400 object-cover shadow-md"
+              />
+              <div className="min-w-0">
+                <span className="inline-block rounded bg-gold-400/20 px-2 py-0.5 font-display text-xs font-bold text-gold-300">
+                  {s.roleTa} <span className="text-white/60">· {s.roleEn}</span>
+                </span>
+                <h4 className="mt-1 font-display text-lg font-bold text-white">{s.nameTa}</h4>
+                <p className="text-xs text-white/70">
+                  {s.nameEn} {'qualification' in s ? `(${s.qualification})` : ''}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
       {/* Lunch ribbon, as on the poster */}
       <div className="mx-auto mt-8 flex max-w-xl items-center justify-center gap-4 rounded-full border-2 border-gold-500/70 bg-cream px-6 py-3.5 text-midnight-800 shadow-gold">
         <ConciergeBell size={32} className="shrink-0 text-ribbon" aria-hidden="true" />
