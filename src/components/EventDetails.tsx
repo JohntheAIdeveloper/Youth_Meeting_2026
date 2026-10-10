@@ -53,9 +53,9 @@ export default function EventDetails() {
               <img
                 src={s.avatar}
                 alt={s.nameEn}
-                width={80}
-                height={80}
-                className="h-20 w-20 shrink-0 rounded-full border-2 border-gold-400 object-cover shadow-md"
+                width={96}
+                height={96}
+                className="h-20 w-20 shrink-0 rounded-full border-2 border-gold-400 object-cover shadow-lg sm:h-24 sm:w-24"
               />
               <div className="min-w-0">
                 <span className="inline-block rounded bg-gold-400/20 px-2 py-0.5 font-display text-xs font-bold text-gold-300">
