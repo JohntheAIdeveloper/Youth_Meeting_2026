@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { ExternalLink, Loader2 } from 'lucide-react'
-import { GOOGLE_FORM_EMBED_URL, GOOGLE_FORM_URL, SECTION_IDS } from '../config/event'
+import { GOOGLE_FORM_EMBED_URL, GOOGLE_FORM_URL, SECTION_IDS, eventConfig as c } from '../config/event'
 import Section from './Section'
 import SectionHeading from './SectionHeading'
 
@@ -55,13 +55,20 @@ export default function RegistrationSection() {
         </p>
       )}
 
-      <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
+      <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
         <a href={GOOGLE_FORM_URL} target="_blank" rel="noopener noreferrer" className="btn btn-navy">
           <ExternalLink size={20} aria-hidden="true" />
           படிவத்தைத் தனி தாவலில் திற | Open Registration Form
           <span className="sr-only">(opens in a new tab)</span>
         </a>
-        <p className="text-sm text-midnight-800/70">படிவம் ஏற்றப்படவில்லையா? இந்தப் பொத்தானைப் பயன்படுத்துங்கள். Form not showing? Use this button.</p>
+        <a
+          href={c.images.poster}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn border border-midnight-900/20 bg-white/80 text-midnight-900 shadow-sm hover:bg-white"
+        >
+          சுவரொட்டி & QR குறியீடு | View Poster & QR
+        </a>
       </div>
     </Section>
   )

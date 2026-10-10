@@ -72,16 +72,27 @@ export default function HeroSection() {
 
         {/* The actual poster, framed — never re-typed */}
         <figure className="mx-auto w-full max-w-[19rem] sm:max-w-sm lg:max-w-none lg:justify-self-end">
-          <div className="relative rotate-0 rounded-2xl bg-gradient-to-b from-gold-300 via-gold-500 to-gold-700 p-[3px] shadow-deep lg:rotate-[2.5deg] lg:transition-transform lg:duration-500 lg:hover:rotate-0">
-            <img
-              src={c.images.posterSmall}
-              width={683}
-              height={1024}
-              alt="வாலிபர் கூடுகை Youth Meeting 2026 அதிகாரப்பூர்வ சுவரொட்டி — Official event poster showing a young man with a raised fist before a cross at sunrise, with the event date 20 October 2026 and contact numbers"
-              className="block h-auto w-full rounded-[0.85rem]"
-            />
-          </div>
-          <figcaption className="mt-3 text-center text-sm text-white/60">அதிகாரப்பூர்வ சுவரொட்டி | Official poster</figcaption>
+          <a
+            href={c.images.poster}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="முழு சுவரொட்டியைக் காண அழுத்தவும் | Click to view full poster"
+            className="group block"
+          >
+            <div className="relative rotate-0 rounded-2xl bg-gradient-to-b from-gold-300 via-gold-500 to-gold-700 p-[3px] shadow-deep transition-all duration-300 group-hover:scale-[1.02] lg:rotate-[2.5deg] lg:group-hover:rotate-0">
+              <img
+                src={c.images.posterSmall}
+                width={682}
+                height={1024}
+                alt="வாலிபர் கூடுகை Youth Meeting 2026 அதிகாரப்பூர்வ சுவரொட்டி — Official event poster with integrated QR code, 20 October 2026"
+                className="block h-auto w-full rounded-[0.85rem]"
+              />
+            </div>
+          </a>
+          <figcaption className="mt-3 text-center text-sm text-white/60">
+            அதிகாரப்பூர்வ சுவரொட்டி | Official poster
+            <span className="block text-xs text-gold-300/80">(QR குறியீட்டுடன் | with QR Code)</span>
+          </figcaption>
         </figure>
       </div>
       <BrushEdge edge="bottom" colorClass="text-cream" seed={3} />

@@ -107,6 +107,7 @@ export const eventConfig = {
     logoWebp: './images/logo.webp',
     poster: './images/poster.webp',
     posterSmall: './images/poster-small.webp',
+    qr: './images/poster-qr.png',
     heroBackdrop: './images/hero-cross.webp',
     worship: './images/worship.webp',
     prayer: './images/prayer.webp',
