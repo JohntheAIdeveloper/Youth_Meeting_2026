@@ -92,15 +92,10 @@ export const eventConfig = {
     nameTa: 'இயேசுவே மெய்யான ஒளி ஊழியங்கள்',
     nameEn: 'Jesus the True Light Ministries',
     /**
-     * Destination from Google Maps pin (11.361147, 77.703681):
-     * Veerappanchatiram, Erode, Tamil Nadu 638001.
+     * Street address is to be confirmed. Leave empty so the Location section
+     * directs visitors to the embedded map and Get Directions link.
      */
-    address: 'வீரப்பன்சத்திரம், ஈரோடு, தமிழ்நாடு 638001 (Veerappanchatiram, Erode, Tamil Nadu 638001)',
-    locality: 'Veerappanchatiram, Erode',
-    coordinates: {
-      lat: 11.361147,
-      lng: 77.703681,
-    },
+    address: '',
   },
   contacts: [
     { nameTa: 'Pr. அந்தோணி டேவிட்', nameEn: 'Pr. Anthony David', display: '63804 15393', tel: '+916380415393' },

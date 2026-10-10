@@ -17,12 +17,7 @@ export default function LocationSection() {
               <p className="font-display text-2xl font-bold leading-snug text-white">{c.venue.nameTa}</p>
               <p className="text-white/75">{c.venue.nameEn}</p>
               {c.venue.address ? (
-                <div className="mt-3">
-                  <address className="not-italic text-white/90">{c.venue.address}</address>
-                  <p className="mt-1.5 text-xs text-gold-300/80">
-                    * துல்லியமான அமைவிடத்தை வரைபடத்தில் காணவும் | Pin represents destination coordinates (11.361147, 77.703681)
-                  </p>
-                </div>
+                <address className="mt-3 not-italic text-white/85">{c.venue.address}</address>
               ) : (
                 <p className="mt-3 text-white/70">
                   சரியான இடத்தை வரைபடத்தில் காணலாம்.
