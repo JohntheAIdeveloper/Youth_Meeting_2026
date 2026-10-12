@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { Menu, X } from 'lucide-react'
-import { Link, usePath } from '../lib/router'
+import { ArrowRight, Menu, X } from 'lucide-react'
 import { ROUTES } from '../config/events'
 import { ministryConfig } from '../config/ministry'
 import { useScrolled } from '../hooks/useScrolled'
+import { Link, usePath } from '../lib/router'
 
 interface Props {
   registerHref?: string
@@ -21,12 +21,11 @@ export default function SiteNav({
   const currentPath = usePath()
   const menuButton = useRef<HTMLButtonElement>(null)
 
-  const navLinks = [
-    { path: ROUTES.HOME, ta: 'நிகழ்வுகள் முகப்பு', en: 'All Events' },
-    { path: ROUTES.FAMILY_PRAYER, ta: 'குடும்ப ஆசீர்வாதம்', en: 'Family Prayer (19 Oct)' },
-    { path: ROUTES.YOUTH_MEETING, ta: 'வாலிபர் கூடுகை', en: 'Youth Meeting (20 Oct)' },
-  ]
+  const isFamily = currentPath === ROUTES.FAMILY_PRAYER
+  const isYouth = currentPath === ROUTES.YOUTH_MEETING
+  const isEventPage = isFamily || isYouth
 
+  // Close mobile drawer on Escape; lock body scroll when open
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
@@ -50,29 +49,38 @@ export default function SiteNav({
     return () => mq.removeEventListener('change', onChange)
   }, [])
 
-  // Default register destination
-  const defaultRegister =
-    currentPath === ROUTES.FAMILY_PRAYER
-      ? '#register'
-      : currentPath === ROUTES.YOUTH_MEETING
-        ? '#register'
-        : '#events'
+  // Section links for single event pages
+  const sectionLinks = [
+    { id: 'home', ta: 'முகப்பு', en: 'Home' },
+    { id: 'about', ta: 'கூடுகை', en: 'About' },
+    { id: 'details', ta: 'விவரங்கள்', en: 'Details' },
+    { id: 'register', ta: 'பதிவு', en: 'Registration' },
+    { id: 'location', ta: 'இடம்', en: 'Location' },
+    { id: 'contact', ta: 'தொடர்பு', en: 'Contact' },
+  ]
 
-  const ctaHref = registerHref || defaultRegister
+  // Central hub links
+  const hubLinks = [
+    { path: ROUTES.HOME, ta: 'முகப்பு', en: 'All Events' },
+    { path: ROUTES.FAMILY_PRAYER, ta: 'குடும்ப ஆசீர்வாதம் (19 அக்)', en: 'Family Prayer' },
+    { path: ROUTES.YOUTH_MEETING, ta: 'வாலிபர் கூடுகை (20 அக்)', en: 'Youth Meeting' },
+    { hash: '#location', ta: 'இடம்', en: 'Venue' },
+    { hash: '#contact', ta: 'தொடர்பு', en: 'Contact' },
+  ]
+
+  // CTA button labels and href
+  const ctaHref = registerHref || (isEventPage ? '#register' : '#events')
   const ctaTa =
     registerLabelTa ||
-    (currentPath === ROUTES.FAMILY_PRAYER
-      ? 'பதிவு (அக் 19)'
-      : currentPath === ROUTES.YOUTH_MEETING
-        ? 'பதிவு (அக் 20)'
-        : 'பதிவு')
+    (isFamily ? 'பதிவு (அக் 19)' : isYouth ? 'பதிவு (அக் 20)' : 'பதிவு')
   const ctaEn =
     registerLabelEn ||
-    (currentPath === ROUTES.FAMILY_PRAYER
-      ? 'Register (19 Oct)'
-      : currentPath === ROUTES.YOUTH_MEETING
-        ? 'Register (20 Oct)'
-        : 'Register')
+    (isFamily ? 'Register (19 Oct)' : isYouth ? 'Register (20 Oct)' : 'Register')
+
+  // Cross event switch target
+  const otherEventRoute = isFamily ? ROUTES.YOUTH_MEETING : ROUTES.FAMILY_PRAYER
+  const otherEventLabelTa = isFamily ? 'வாலிபர் கூடுகை (20 அக்)' : 'குடும்ப ஆசீர்வாதம் (19 அக்)'
+  const otherEventLabelEn = isFamily ? 'Youth Meeting' : 'Family Prayer'
 
   return (
     <header
@@ -90,6 +98,7 @@ export default function SiteNav({
           to={ROUTES.HOME}
           className="flex min-w-0 items-center gap-3"
           onClick={() => setOpen(false)}
+          title="நிகழ்வுகள் முகப்பு | Events Hub"
         >
           <img
             src={ministryConfig.logos.logoTight}
@@ -103,33 +112,83 @@ export default function SiteNav({
               {ministryConfig.name.ta}
             </span>
             <span className="hidden truncate text-xs text-white/65 sm:block">
-              {ministryConfig.name.en}
+              {isFamily
+                ? 'குடும்ப ஆசீர்வாதக் கூட்டம் (19 Oct)'
+                : isYouth
+                  ? 'வாலிபர் கூடுகை (20 Oct)'
+                  : ministryConfig.name.en}
             </span>
           </span>
         </Link>
 
-        {/* Desktop Links */}
-        <ul className="hidden items-center gap-2 lg:flex">
-          {navLinks.map((l) => {
-            const isActive = currentPath === l.path
-            return (
-              <li key={l.path}>
-                <Link
-                  to={l.path}
-                  aria-current={isActive ? 'page' : undefined}
-                  className={`block rounded-lg px-3 py-1.5 text-center leading-tight transition-colors hover:text-gold-300 ${
-                    isActive ? 'text-gold-300 bg-white/5' : 'text-white/85'
-                  }`}
-                >
-                  <span className="block font-display text-[0.95rem] font-bold">
-                    {l.ta}
-                  </span>
-                  <span className="block text-[0.7rem] text-white/60">{l.en}</span>
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
+        {/* Desktop Section Links (When on event page) */}
+        {isEventPage ? (
+          <div className="hidden items-center gap-1 xl:gap-2 lg:flex">
+            <ul className="flex items-center gap-1">
+              {sectionLinks.map((l) => (
+                <li key={l.id}>
+                  <a
+                    href={`#${l.id}`}
+                    className="block rounded-lg px-2.5 py-1 text-center leading-tight text-white/85 transition-colors hover:text-gold-300"
+                  >
+                    <span className="block font-display text-[0.92rem] font-bold">
+                      {l.ta}
+                    </span>
+                    <span className="block text-[0.68rem] text-white/55">{l.en}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            {/* Cross Event Switcher Badge */}
+            <Link
+              to={otherEventRoute}
+              className="ml-2 inline-flex items-center gap-1.5 rounded-full border border-gold-400/40 bg-midnight-800/80 px-3 py-1 text-xs font-bold text-gold-300 transition hover:bg-gold-400/20 hover:text-white"
+            >
+              <span>{otherEventLabelTa}</span>
+              <span className="hidden 2xl:inline text-[0.65rem] text-gold-300/70">({otherEventLabelEn})</span>
+              <ArrowRight size={13} aria-hidden="true" />
+            </Link>
+          </div>
+        ) : (
+          /* Desktop Hub Links (When on central /) */
+          <ul className="hidden items-center gap-2 lg:flex">
+            {hubLinks.map((l) => {
+              if (l.path) {
+                const isActive = currentPath === l.path
+                return (
+                  <li key={l.path}>
+                    <Link
+                      to={l.path}
+                      aria-current={isActive ? 'page' : undefined}
+                      className={`block rounded-lg px-3 py-1.5 text-center leading-tight transition-colors hover:text-gold-300 ${
+                        isActive ? 'text-gold-300 bg-white/5' : 'text-white/85'
+                      }`}
+                    >
+                      <span className="block font-display text-[0.95rem] font-bold">
+                        {l.ta}
+                      </span>
+                      <span className="block text-[0.7rem] text-white/60">{l.en}</span>
+                    </Link>
+                  </li>
+                )
+              }
+              return (
+                <li key={l.hash}>
+                  <a
+                    href={l.hash}
+                    className="block rounded-lg px-3 py-1.5 text-center leading-tight text-white/85 transition-colors hover:text-gold-300"
+                  >
+                    <span className="block font-display text-[0.95rem] font-bold">
+                      {l.ta}
+                    </span>
+                    <span className="block text-[0.7rem] text-white/60">{l.en}</span>
+                  </a>
+                </li>
+              )
+            })}
+          </ul>
+        )}
 
         {/* CTA and mobile toggle */}
         <div className="flex items-center gap-2">
@@ -165,32 +224,83 @@ export default function SiteNav({
         </div>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Drawer */}
       {open && (
         <div
           id="mobile-menu"
           className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-white/10 bg-midnight-900/98 px-5 pb-6 pt-3 sm:px-8 lg:hidden"
         >
-          <ul className="mx-auto max-w-6xl space-y-1">
-            {navLinks.map((l) => {
-              const isActive = currentPath === l.path
-              return (
-                <li key={l.path} className="border-b border-white/10 last:border-0">
+          {isEventPage ? (
+            <div className="space-y-4">
+              {/* Event Section Links */}
+              <ul className="space-y-1">
+                {sectionLinks.map((l) => (
+                  <li key={l.id} className="border-b border-white/10 last:border-0">
+                    <a
+                      href={`#${l.id}`}
+                      onClick={() => setOpen(false)}
+                      className="flex items-baseline justify-between py-3 text-white hover:text-gold-300"
+                    >
+                      <span className="font-display text-lg font-bold">{l.ta}</span>
+                      <span className="text-sm text-white/60">{l.en}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Navigation to other meetings */}
+              <div className="rounded-xl border border-gold-400/30 bg-midnight-800/90 p-4">
+                <p className="font-display text-xs font-bold uppercase tracking-wider text-gold-300">
+                  பிற நிகழ்வுகள் | Other Events
+                </p>
+                <div className="mt-2 space-y-2">
                   <Link
-                    to={l.path}
+                    to={otherEventRoute}
                     onClick={() => setOpen(false)}
-                    aria-current={isActive ? 'page' : undefined}
-                    className={`flex items-baseline justify-between gap-3 py-3.5 ${
-                      isActive ? 'text-gold-300' : 'text-white'
-                    }`}
+                    className="flex items-center justify-between text-sm font-semibold text-white hover:text-gold-300"
                   >
-                    <span className="font-display text-lg font-bold">{l.ta}</span>
-                    <span className="text-sm text-white/60">{l.en}</span>
+                    <span>{otherEventLabelTa}</span>
+                    <ArrowRight size={16} />
                   </Link>
+                  <Link
+                    to={ROUTES.HOME}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-between text-sm text-white/70 hover:text-white"
+                  >
+                    <span>அனைத்து நிகழ்வுகள் முகப்பு | Events Hub</span>
+                    <ArrowRight size={16} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* Hub Mobile Links */
+            <ul className="mx-auto max-w-6xl space-y-1">
+              {hubLinks.map((l) => (
+                <li key={l.ta} className="border-b border-white/10 last:border-0">
+                  {l.path ? (
+                    <Link
+                      to={l.path}
+                      onClick={() => setOpen(false)}
+                      className="flex items-baseline justify-between py-3.5 text-white hover:text-gold-300"
+                    >
+                      <span className="font-display text-lg font-bold">{l.ta}</span>
+                      <span className="text-sm text-white/60">{l.en}</span>
+                    </Link>
+                  ) : (
+                    <a
+                      href={l.hash}
+                      onClick={() => setOpen(false)}
+                      className="flex items-baseline justify-between py-3.5 text-white hover:text-gold-300"
+                    >
+                      <span className="font-display text-lg font-bold">{l.ta}</span>
+                      <span className="text-sm text-white/60">{l.en}</span>
+                    </a>
+                  )}
                 </li>
-              )
-            })}
-          </ul>
+              ))}
+            </ul>
+          )}
         </div>
       )}
     </header>

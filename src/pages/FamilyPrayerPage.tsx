@@ -1,9 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import {
   CalendarDays,
   Clock,
   ConciergeBell,
   ExternalLink,
+  Loader2,
   MapPin,
   Navigation,
   Phone,
@@ -11,6 +12,7 @@ import {
 } from 'lucide-react'
 import CountdownTimer from '../components/CountdownTimer'
 import CrossEventNotice from '../components/CrossEventNotice'
+import FamilyAboutSection from '../components/FamilyAboutSection'
 import Footer from '../components/Footer'
 import PosterViewer from '../components/PosterViewer'
 import Section from '../components/Section'
@@ -19,8 +21,12 @@ import SiteNav from '../components/SiteNav'
 import { familyPrayerEvent } from '../config/events'
 import { ministryConfig } from '../config/ministry'
 
+const SLOW_LOAD_MS = 12000
+
 export default function FamilyPrayerPage() {
   const event = familyPrayerEvent
+  const [formLoaded, setFormLoaded] = useState(false)
+  const [slowLoad, setSlowLoad] = useState(false)
 
   useEffect(() => {
     document.title = event.seo.title
@@ -31,6 +37,12 @@ export default function FamilyPrayerPage() {
       }
     }
   }, [event.seo.title])
+
+  useEffect(() => {
+    if (formLoaded) return
+    const t = window.setTimeout(() => setSlowLoad(true), SLOW_LOAD_MS)
+    return () => window.clearTimeout(t)
+  }, [formLoaded])
 
   return (
     <>
@@ -129,8 +141,8 @@ export default function FamilyPrayerPage() {
                 </div>
               </div>
 
-              {/* Poster frame */}
-              <div className="justify-self-center lg:justify-self-end">
+              {/* Poster frame with interactive lightbox */}
+              <div className="justify-self-center lg:justify-self-end w-full max-w-sm lg:max-w-md">
                 <PosterViewer
                   poster={event.poster}
                   badgeText="அதிகாரப்பூர்வ சுவரொட்டி | Official Poster (19 Oct 2026)"
@@ -144,12 +156,15 @@ export default function FamilyPrayerPage() {
         {/* Cross Event Notification */}
         <CrossEventNotice currentEvent="family-prayer" />
 
+        {/* ABOUT SECTION (Matches Youth Meeting workflow) */}
+        <FamilyAboutSection />
+
         {/* EVENT DETAILS SECTION */}
         <Section
           id="details"
           tone="navy"
           labelledBy="family-details-title"
-          brushTop="text-midnight-900"
+          brushTop="text-cream"
           seed={15}
         >
           <SectionHeading
@@ -196,7 +211,7 @@ export default function FamilyPrayerPage() {
             </article>
           </div>
 
-          {/* Speakers from official poster */}
+          {/* Featured Speakers with studio portraits */}
           <div className="mt-12">
             <h3 className="mb-6 text-center font-display text-2xl font-bold text-gold-300">
               சிறப்புச் செய்தி & போதகர் | Speakers & Ministry
@@ -253,9 +268,15 @@ export default function FamilyPrayerPage() {
               </span>
             </p>
           </div>
+
+          <div className="mt-10 text-center">
+            <a href="#register" className="btn btn-gold">
+              பதிவு செய்யுங்கள் | Register Now
+            </a>
+          </div>
         </Section>
 
-        {/* REGISTRATION SECTION */}
+        {/* REGISTRATION SECTION (With Embedded Google Form — Matches Youth Meeting Workflow) */}
         <Section
           id="register"
           tone="cream"
@@ -268,55 +289,73 @@ export default function FamilyPrayerPage() {
             ta="பதிவு செய்யுங்கள்"
             en="Register for Family Prayer Meeting"
             tone="cream"
-            align="center"
           />
+          <p className="-mt-6 mb-8 max-w-2xl text-lg text-midnight-800/90 sm:-mt-8">
+            கீழே உள்ள அதிகாரப்பூர்வ கூகுள் படிவத்தை நிரப்பி உங்கள் பதிவை உறுதிப்படுத்துங்கள்.
+            <span className="mt-1 block text-midnight-800/75">
+              Please complete the official registration form below to confirm your seat for the Family Prayer Meeting (19 October 2026).
+            </span>
+          </p>
 
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="-mt-6 mb-8 text-lg text-midnight-800/90 sm:-mt-8" lang="ta">
-              குடும்ப ஆசீர்வாதக் கூட்டத்தில் கலந்துகொள்ள கீழே உள்ள அதிகாரப்பூர்வ கூகுள் படிவத்தை நிரப்பி உங்கள் பதிவை உறுதிப்படுத்துங்கள்.
-            </p>
-            <p className="-mt-6 mb-8 text-sm text-midnight-800/75">
-              Please complete the official registration form for the Family Prayer Meeting (19 October 2026).
-            </p>
-
-            <div className="rounded-3xl bg-gradient-to-b from-ribbon via-gold-500 to-ribbon p-[3px] shadow-deep">
-              <div className="rounded-[1.4rem] bg-white p-8 sm:p-10 text-midnight-900">
-                <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full bg-ribbon/10 px-4 py-1 font-display text-xs font-bold text-ribbon">
-                  <span>அக்டோபர் 19, 2026 திங்கள் · Monday 19 Oct 2026</span>
+          <div className="rounded-2xl bg-gradient-to-b from-ribbon via-gold-500 to-ribbon p-[3px] shadow-deep">
+            <div className="relative overflow-hidden rounded-[0.85rem] bg-white">
+              {!formLoaded && (
+                <div
+                  className="absolute inset-0 z-10 grid place-items-center bg-white text-midnight-800"
+                  role="status"
+                >
+                  <p className="flex items-center gap-3 font-display text-lg font-bold">
+                    <Loader2 className="animate-spin text-ribbon" size={24} aria-hidden="true" />
+                    படிவம் ஏற்றப்படுகிறது… | Loading form…
+                  </p>
                 </div>
-
-                <h3 className="font-display text-2xl font-extrabold text-midnight-900 sm:text-3xl">
-                  {event.titleTa}
-                </h3>
-                <p className="mt-1 font-display text-lg font-bold text-gold-600">
-                  {event.titleEn}
-                </p>
-
-                <p className="mt-4 text-sm text-midnight-800/80 leading-relaxed">
-                  பதிவு இலவசம். மதிய உணவு வழங்கப்படும். பதிவு செய்த அனைவருக்கும் இடம் உறுதி செய்யப்படும்.
-                  <span className="block mt-1 text-xs text-midnight-800/65">
-                    Admission is free. Lunch is provided. Please register in advance.
-                  </span>
-                </p>
-
-                <div className="mt-8">
-                  <a
-                    href={event.registration.shareUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn bg-gradient-to-b from-ribbon via-[#A52025] to-ribbon text-white shadow-lg hover:brightness-110 !min-h-[3.5rem] !px-8 !text-lg w-full sm:w-auto"
-                  >
-                    <span>கூகுள் படிவத்தைத் திறக்க | Open Registration Form</span>
-                    <ExternalLink size={20} aria-hidden="true" />
-                    <span className="sr-only">(opens Google Form in new tab)</span>
-                  </a>
-                </div>
-
-                <p className="mt-4 text-xs text-midnight-800/60">
-                  இணைப்பு: {event.registration.shareUrl}
-                </p>
-              </div>
+              )}
+              {event.registration.embedUrl && (
+                <iframe
+                  title="குடும்ப ஆசீர்வாதக் கூட்டம் 2026 பதிவு படிவம் — Family Prayer Meeting 2026 registration form (Google Forms)"
+                  src={event.registration.embedUrl}
+                  onLoad={() => setFormLoaded(true)}
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  className="block h-[1750px] w-full max-w-full border-0 sm:h-[1500px] lg:h-[1450px]"
+                >
+                  படிவம் ஏற்றப்படவில்லை. Loading…
+                </iframe>
+              )}
             </div>
+          </div>
+
+          {slowLoad && !formLoaded && (
+            <p
+              className="mt-5 rounded-xl border border-ribbon/40 bg-ribbon/10 p-4 text-midnight-800"
+              role="alert"
+            >
+              படிவம் இங்கே காட்டப்படவில்லை என்றால் கீழுள்ள பொத்தானைப் பயன்படுத்தி தனி தாவலில் திறக்கவும்.
+              <span className="block text-midnight-800/75">
+                If the form does not appear here, use the button below to open it directly in a new tab.
+              </span>
+            </p>
+          )}
+
+          <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
+            <a
+              href={event.registration.shareUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn bg-gradient-to-b from-ribbon to-[#A52025] text-white shadow-lg hover:brightness-110"
+            >
+              <ExternalLink size={20} aria-hidden="true" />
+              படிவத்தைத் தனி தாவலில் திற | Open Registration Form
+              <span className="sr-only">(opens in a new tab)</span>
+            </a>
+            <a
+              href={event.poster.src}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn border border-midnight-900/20 bg-white/80 text-midnight-900 shadow-sm hover:bg-white"
+            >
+              சுவரொட்டியைக் காண்க | View Poster
+            </a>
           </div>
         </Section>
 
@@ -428,9 +467,7 @@ export default function FamilyPrayerPage() {
       {/* Mobile Sticky Bottom CTA */}
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-gold-400/30 bg-midnight-950/95 p-3 backdrop-blur-md sm:hidden">
         <a
-          href={event.registration.shareUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+          href="#register"
           className="btn bg-gradient-to-b from-ribbon to-[#A52025] text-white shadow-lg w-full !min-h-[3rem] !text-base font-bold"
         >
           <span>பதிவு — குடும்ப ஆசீர்வாதம் (அக் 19)</span>

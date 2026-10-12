@@ -110,6 +110,8 @@ export const familyPrayerEvent: EventConfig = {
   },
   registration: {
     shareUrl: 'https://forms.gle/KD67MRaaUvF91KKA7',
+    embedUrl:
+      'https://docs.google.com/forms/d/e/1FAIpQLSdJj0AT5BQ978MCK-W0taUzpWEzxRY1QgK5TJxqsl_EFXSbvw/viewform?embedded=true',
   },
   venue: sharedVenue,
   contacts: sharedContacts,

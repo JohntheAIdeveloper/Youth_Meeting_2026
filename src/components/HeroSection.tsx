@@ -1,6 +1,8 @@
 import { CalendarDays, Clock, MapPin } from 'lucide-react'
 import { SECTION_IDS, eventConfig as c } from '../config/event'
 import BrushEdge from './BrushEdge'
+import CountdownTimer from './CountdownTimer'
+import PosterViewer from './PosterViewer'
 
 export default function HeroSection() {
   return (
@@ -68,32 +70,28 @@ export default function HeroSection() {
               இடம் | View Location
             </a>
           </div>
+
+          {/* Countdown Timer */}
+          <div className="mt-8 max-w-md">
+            <CountdownTimer targetIso="2026-10-20T10:00:00+05:30" accent="youth" />
+          </div>
         </div>
 
-        {/* The actual poster, framed — never re-typed */}
-        <figure className="mx-auto w-full max-w-[19rem] sm:max-w-sm lg:max-w-none lg:justify-self-end">
-          <a
-            href={c.images.poster}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="முழு சுவரொட்டியைக் காண அழுத்தவும் | Click to view full poster"
-            className="group block"
-          >
-            <div className="relative rotate-0 rounded-2xl bg-gradient-to-b from-gold-300 via-gold-500 to-gold-700 p-[3px] shadow-deep transition-all duration-300 group-hover:scale-[1.02] lg:rotate-[2.5deg] lg:group-hover:rotate-0">
-              <img
-                src={c.images.posterSmall}
-                width={682}
-                height={1024}
-                alt="வாலிபர் கூடுகை Youth Meeting 2026 அதிகாரப்பூர்வ சுவரொட்டி — Official event poster with integrated QR code, 20 October 2026"
-                className="block h-auto w-full rounded-[0.85rem]"
-              />
-            </div>
-          </a>
-          <figcaption className="mt-3 text-center text-sm text-white/60">
-            அதிகாரப்பூர்வ சுவரொட்டி | Official poster
-            <span className="block text-xs text-gold-300/80">(QR குறியீட்டுடன் | with QR Code)</span>
-          </figcaption>
-        </figure>
+        {/* The actual poster, framed with interactive lightbox */}
+        <div className="justify-self-center lg:justify-self-end w-full max-w-sm lg:max-w-md">
+          <PosterViewer
+            poster={{
+              src: c.images.poster,
+              smallSrc: c.images.posterSmall,
+              width: 682,
+              height: 1024,
+              altTa: 'வாலிபர் கூடுகை Youth Meeting 2026 அதிகாரப்பூர்வ சுவரொட்டி',
+              altEn: 'Official event poster: Youth Meeting 2026 with integrated QR code, 20 October 2026',
+            }}
+            badgeText="அதிகாரப்பூர்வ சுவரொட்டி | Official Poster (QR Code)"
+            accent="youth"
+          />
+        </div>
       </div>
       <BrushEdge edge="bottom" colorClass="text-cream" seed={3} />
     </section>
