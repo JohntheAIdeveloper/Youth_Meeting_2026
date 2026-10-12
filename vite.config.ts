@@ -26,8 +26,8 @@ function perRouteHtmlPlugin(): Plugin {
             'இயேசுவே மெய்யான ஒளி ஊழியங்கள் நடத்தும் குடும்ப ஆசீர்வாதக் கூட்டம் — அக்டோபர் 19, 2026 திங்கள், காலை 9:30 மணி முதல் மதியம் 1 மணி வரை. Family Prayer Meeting 2026 by Jesus the True Light Ministries.',
           canonical: `${siteUrl}/family-prayer`,
           ogImage: `${siteUrl}/images/poster-family-v1.jpg`,
-          ogImageWidth: '853',
-          ogImageHeight: '1280',
+          ogImageWidth: '682',
+          ogImageHeight: '1024',
           ogImageAlt: 'குடும்ப ஆசீர்வாதக் கூட்டம் அதிகாரப்பூர்வ சுவரொட்டி — அக்டோபர் 19, 2026',
           jsonLd: {
             '@context': 'https://schema.org',

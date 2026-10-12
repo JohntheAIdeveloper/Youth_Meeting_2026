@@ -102,8 +102,8 @@ export const familyPrayerEvent: EventConfig = {
   poster: {
     src: assetUrl('images/poster-family-v1.webp'),
     smallSrc: undefined,
-    width: 853,
-    height: 1280,
+    width: 682,
+    height: 1024,
     altTa: 'குடும்ப ஆசீர்வாதக் கூட்டம் அதிகாரப்பூர்வ சுவரொட்டி — அக்டோபர் 19, 2026',
     altEn:
       'Official poster: Family Prayer Meeting, Monday 19 October 2026, 9:30 AM to 1:00 PM, Jesus the True Light Ministries',

@@ -78,11 +78,11 @@ export default function EventsHome() {
                   <img
                     src={assetUrl('images/poster-family-v1.webp')}
                     alt="குடும்ப ஆசீர்வாதக் கூட்டம் அதிகாரப்பூர்வ சுவரொட்டி — 19 அக்டோபர் 2026"
-                    width={853}
-                    height={1280}
+                    width={682}
+                    height={1024}
                     loading="eager"
                     className="block h-auto w-full object-contain transition-transform duration-500 group-hover:scale-[1.03]"
-                    style={{ aspectRatio: '853/1280' }}
+                    style={{ aspectRatio: '682/1024' }}
                   />
                   {/* Subtle hover overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-midnight-950/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-end justify-center pb-6">
