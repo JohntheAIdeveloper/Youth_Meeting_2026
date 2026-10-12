@@ -121,12 +121,16 @@ export const familyPrayerEvent: EventConfig = {
       nameEn: 'Pr. S. John',
       placeTa: 'AG சபை, ஆந்தியூர்',
       placeEn: 'AG Church, Anthiyur',
+      avatar: assetUrl('images/speaker-john-face.webp'),
+      card: assetUrl('images/speaker-john-full.webp'),
     },
     {
       roleTa: 'சபை போதகர்',
       roleEn: 'Church Pastor',
       nameTa: 'Pr. அந்தோணி டேவிட்',
       nameEn: 'Pr. Anthony David',
+      avatar: assetUrl('images/speaker-anthony-face.webp'),
+      card: assetUrl('images/speaker-anthony-full.webp'),
     },
   ],
   notices: [

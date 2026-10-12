@@ -78,20 +78,34 @@ export default function EventCard({ event }: Props) {
           </div>
 
           {/* Speakers */}
-          <div className="flex items-start gap-3 text-white border-t border-white/5 pt-2.5">
-            <User size={18} className="shrink-0 text-gold-400 mt-0.5" aria-hidden="true" />
-            <div className="text-xs">
-              {event.speakers.map((s, idx) => (
-                <div key={s.nameEn} className={idx > 0 ? 'mt-1' : ''}>
-                  <span className="text-gold-300 font-bold">{s.roleTa}: </span>
-                  <span className="text-white font-semibold">{s.nameTa}</span>
-                  {s.placeTa && <span className="text-white/60"> ({s.placeTa})</span>}
-                  <span className="block text-white/60">
-                    {s.roleEn}: {s.nameEn} {s.placeEn ? `(${s.placeEn})` : ''}
-                  </span>
+          <div className="border-t border-white/5 pt-2.5 space-y-2">
+            {event.speakers.map((s) => (
+              <div key={s.nameEn} className="flex items-center gap-2.5">
+                {s.avatar ? (
+                  <img
+                    src={s.avatar}
+                    alt={s.nameEn}
+                    width={36}
+                    height={36}
+                    className="h-9 w-9 shrink-0 rounded-full border border-gold-400/60 object-cover shadow"
+                  />
+                ) : (
+                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gold-400/20 text-gold-300">
+                    <User size={16} aria-hidden="true" />
+                  </div>
+                )}
+                <div className="min-w-0 text-xs">
+                  <div>
+                    <span className="text-gold-300 font-bold">{s.roleTa}: </span>
+                    <span className="text-white font-semibold">{s.nameTa}</span>
+                    {s.placeTa && <span className="text-white/60"> ({s.placeTa})</span>}
+                  </div>
+                  <div className="text-white/60 text-[0.7rem] truncate">
+                    {s.roleEn}: {s.nameEn}
+                  </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
 
           {/* Lunch notice */}

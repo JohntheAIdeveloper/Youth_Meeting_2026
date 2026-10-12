@@ -205,28 +205,36 @@ export default function FamilyPrayerPage() {
               {event.speakers.map((s) => (
                 <article
                   key={s.nameEn}
-                  className="tile border border-gold-500/30 bg-midnight-800/90 p-6 transition-colors hover:border-gold-400"
+                  className="tile flex items-center gap-5 border border-gold-500/30 bg-midnight-800/90 p-5 transition-colors hover:border-gold-400"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gold-400/15 text-gold-300 border border-gold-400/30">
-                      <User size={28} aria-hidden="true" />
+                  {s.avatar ? (
+                    <img
+                      src={s.avatar}
+                      alt={s.nameEn}
+                      width={112}
+                      height={112}
+                      className="h-24 w-24 shrink-0 rounded-2xl border-2 border-gold-400 object-cover shadow-lg sm:h-28 sm:w-28"
+                    />
+                  ) : (
+                    <div className="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-gold-400/15 text-gold-300 border border-gold-400/30">
+                      <User size={32} aria-hidden="true" />
                     </div>
-                    <div>
-                      <span className="inline-block rounded bg-ribbon px-2.5 py-0.5 font-display text-xs font-bold text-white">
-                        {s.roleTa} <span className="text-white/75">· {s.roleEn}</span>
-                      </span>
-                      <h4 className="mt-2 font-display text-xl font-bold text-white">
-                        {s.nameTa}
-                      </h4>
-                      <p className="text-sm font-semibold text-gold-300">
-                        {s.nameEn}
+                  )}
+                  <div className="min-w-0">
+                    <span className="inline-block rounded bg-ribbon px-2.5 py-0.5 font-display text-xs font-bold text-white shadow-sm">
+                      {s.roleTa} <span className="text-white/75">· {s.roleEn}</span>
+                    </span>
+                    <h4 className="mt-2 font-display text-xl font-bold text-white">
+                      {s.nameTa}
+                    </h4>
+                    <p className="text-sm font-semibold text-gold-300">
+                      {s.nameEn}
+                    </p>
+                    {s.placeTa && (
+                      <p className="mt-1 text-xs text-white/70">
+                        {s.placeTa} · {s.placeEn}
                       </p>
-                      {s.placeTa && (
-                        <p className="mt-1 text-xs text-white/70">
-                          {s.placeTa} · {s.placeEn}
-                        </p>
-                      )}
-                    </div>
+                    )}
                   </div>
                 </article>
               ))}
