@@ -10,6 +10,11 @@ export function assetUrl(path: string): string {
     return path
   }
   const clean = path.replace(/^\.?\//, '')
-  const base = import.meta.env.BASE_URL || '/'
+  const base =
+    typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL
+      ? import.meta.env.BASE_URL
+      : typeof process !== 'undefined' && process.env?.VITE_BASE
+        ? process.env.VITE_BASE
+        : '/'
   return base.endsWith('/') ? `${base}${clean}` : `${base}/${clean}`
 }

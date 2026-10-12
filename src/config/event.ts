@@ -10,7 +10,12 @@
 
 import { assetUrl } from '../lib/assetUrl'
 
-const env = import.meta.env
+const env =
+  typeof import.meta !== 'undefined' && import.meta.env
+    ? import.meta.env
+    : typeof process !== 'undefined'
+      ? (process.env as any)
+      : {}
 
 /* ------------------------------------------------------------------ */
 /* 1. GOOGLE FORM (registration)                                       */
