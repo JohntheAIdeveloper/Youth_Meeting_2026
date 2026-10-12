@@ -3,7 +3,7 @@ import { assetUrl } from '../lib/assetUrl'
 /**
  * Production canonical site URL for social share / Open Graph previews.
  */
-export const SITE_URL = 'https://jtlmyouthmeeting2026.vercel.app'
+export const SITE_URL = 'https://jtlmofficial.vercel.app'
 
 export interface Contact {
   nameTa?: string

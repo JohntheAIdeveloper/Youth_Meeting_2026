@@ -483,7 +483,7 @@ html_content = f"""<!DOCTYPE html>
         </div>
         <div class="meta-item">
           <div class="meta-label">Primary Cloud Host</div>
-          <div class="meta-value"><a href="https://jtlmyouthmeeting2026.vercel.app" style="color: #2563eb; text-decoration: none;">jtlmyouthmeeting2026.vercel.app</a></div>
+          <div class="meta-value"><a href="https://jtlmofficial.vercel.app" style="color: #2563eb; text-decoration: none;">jtlmofficial.vercel.app</a></div>
         </div>
         <div class="meta-item">
           <div class="meta-label">Failover CDN Mirror</div>
@@ -941,7 +941,7 @@ npx gh-pages -d dist -m "deploy: update youth meeting site"</div>
     <tbody>
       <tr>
         <td><strong>Vercel Production (Primary)</strong></td>
-        <td><a href="https://jtlmyouthmeeting2026.vercel.app" style="color: #2563eb; text-decoration: none;">https://jtlmyouthmeeting2026.vercel.app</a></td>
+        <td><a href="https://jtlmofficial.vercel.app" style="color: #2563eb; text-decoration: none;">https://jtlmofficial.vercel.app</a></td>
         <td><span class="badge badge-green">LIVE — 200 OK</span></td>
       </tr>
       <tr>

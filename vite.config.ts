@@ -16,7 +16,7 @@ function perRouteHtmlPlugin(): Plugin {
       if (!fs.existsSync(indexHtmlPath)) return
 
       const template = fs.readFileSync(indexHtmlPath, 'utf8')
-      const siteUrl = 'https://jtlmyouthmeeting2026.vercel.app'
+      const siteUrl = 'https://jtlmofficial.vercel.app'
 
       const routes = [
         {

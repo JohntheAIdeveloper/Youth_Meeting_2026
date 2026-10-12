@@ -175,7 +175,7 @@ Add a unit-style guard script (no framework needed) `scripts/check-config.mjs` t
 ### 5.1 File changes
 | File | Change |
 |---|---|
-| `src/config/ministry.ts` | **new** — `SITE_URL = 'https://jtlmyouthmeeting2026.vercel.app'`, shared logo/contacts/venue |
+| `src/config/ministry.ts` | **new** — `SITE_URL = 'https://jtlmofficial.vercel.app'`, shared logo/contacts/venue |
 | `src/config/events.ts` | **new** — model + two entries + helpers |
 | `src/lib/assetUrl.ts` | **new** — `assetUrl(p) => import.meta.env.BASE_URL + p.replace(/^\.?\//,'')` |
 | `src/lib/router.tsx` | **new** — `usePath`, `navigate`, `<Link>`, legacy-hash shim |
