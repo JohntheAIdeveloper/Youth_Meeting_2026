@@ -1,31 +1,22 @@
-import Navbar from './components/Navbar'
-import HeroSection from './components/HeroSection'
-import AboutSection from './components/AboutSection'
-import EventDetails from './components/EventDetails'
-import RegistrationSection from './components/RegistrationSection'
-import LocationSection from './components/LocationSection'
-import ContactSection from './components/ContactSection'
-import Footer from './components/Footer'
+import { ROUTES } from './config/events'
+import { usePath } from './lib/router'
+import EventsHome from './pages/EventsHome'
+import FamilyPrayerPage from './pages/FamilyPrayerPage'
+import NotFound from './pages/NotFound'
+import YouthPage from './pages/YouthPage'
 
 export default function App() {
-  return (
-    <>
-      <a
-        href="#register"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-gold-400 focus:px-4 focus:py-2 focus:font-bold focus:text-midnight-900"
-      >
-        பதிவுக்குச் செல் | Skip to registration
-      </a>
-      <Navbar />
-      <main>
-        <HeroSection />
-        <AboutSection />
-        <EventDetails />
-        <RegistrationSection />
-        <LocationSection />
-        <ContactSection />
-      </main>
-      <Footer />
-    </>
-  )
+  const path = usePath()
+
+  switch (path) {
+    case ROUTES.HOME:
+    case '':
+      return <EventsHome />
+    case ROUTES.FAMILY_PRAYER:
+      return <FamilyPrayerPage />
+    case ROUTES.YOUTH_MEETING:
+      return <YouthPage />
+    default:
+      return <NotFound />
+  }
 }
