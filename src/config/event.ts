@@ -8,6 +8,8 @@
  * (see .env.example) without touching the code.
  */
 
+import { assetUrl } from '../lib/assetUrl'
+
 const env = import.meta.env
 
 /* ------------------------------------------------------------------ */
@@ -108,8 +110,8 @@ export const eventConfig = {
       roleEn: "God's Message",
       nameTa: 'Pr. அந்தோணி டேவிட்',
       nameEn: 'Pr. Anthony David',
-      avatar: './images/speaker-david-face.webp',
-      card: './images/speaker-anthony.webp',
+      avatar: assetUrl('images/speaker-david-face.webp'),
+      card: assetUrl('images/speaker-anthony.webp'),
     },
     {
       roleTa: 'சிறப்பு ஆலோசனை',
@@ -117,20 +119,20 @@ export const eventConfig = {
       nameTa: 'Dr. A. வனஜா',
       nameEn: 'Dr. A. Vanaja',
       qualification: 'Psychologist',
-      avatar: './images/speaker-vanaja-face.webp',
-      card: './images/speaker-vanaja.webp',
+      avatar: assetUrl('images/speaker-vanaja-face.webp'),
+      card: assetUrl('images/speaker-vanaja.webp'),
     },
   ],
   images: {
-    logo: './images/logo.png',
-    logoTight: './images/logo-tight.png',
-    logoWebp: './images/logo.webp',
-    poster: './images/poster-v3.webp',
-    posterSmall: './images/poster-small-v3.webp',
-    qr: './images/poster-qr.png',
-    heroBackdrop: './images/hero-cross.webp',
-    worship: './images/worship.webp',
-    prayer: './images/prayer.webp',
+    logo: assetUrl('images/logo.png'),
+    logoTight: assetUrl('images/logo-tight.png'),
+    logoWebp: assetUrl('images/logo.webp'),
+    poster: assetUrl('images/poster-v3.webp'),
+    posterSmall: assetUrl('images/poster-small-v3.webp'),
+    qr: assetUrl('images/poster-qr.png'),
+    heroBackdrop: assetUrl('images/hero-cross.webp'),
+    worship: assetUrl('images/worship.webp'),
+    prayer: assetUrl('images/prayer.webp'),
   },
 } as const
 
